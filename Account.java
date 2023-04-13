@@ -11,24 +11,15 @@ public class Account
 	private static int incrementer = 1;
 	//Final string userName, user's cannot change their userName
 	private final String userName;
-	
 	private String forename;
 	private String surname;
-	
-	
 	//Date of birth of user
 	private LocalDate dob;
-	
-	
 	//for verifying user age 
 	private LocalDate today = LocalDate.now();
     private LocalDate eighteenYearsAgo = today.minusYears(18);
-
-
-	
 	//ArrayList to collect username's and ensure uniqueness - same arrayList for all objects of Account 
 	private static ArrayList<String> userNames = new ArrayList<String>();
-	
 	//ArrayList to hold all followers
 	private ArrayList<Account> followerList;
 	//ArrayList to hold all following
@@ -46,7 +37,6 @@ public class Account
 			System.out.println("\nUsername already exists. Please change name");
 			throw new IllegalArgumentException();
 		}
-		
 		//Check for DOB
 		this.dob = LocalDate.of(birthYear, birthMonth, birthDay);
         if (dob.isAfter(eighteenYearsAgo)) 
@@ -54,7 +44,6 @@ public class Account
             System.out.println("\nUser must be at least 18 years old.");
             throw new IllegalArgumentException();
         }
-
 		//Continue with account creation
 		ID = incrementer;
 		incrementer = incrementer + 1;
@@ -62,10 +51,9 @@ public class Account
 		this.surname = surname;
 		this.userName = userName;
 		userNames.add(userName);
-		
+		//Initialising follower/following lists 
 		followerList = new ArrayList<Account>();
 		followingList = new ArrayList<Account>();
-		
 	}
 	
 	//simple getters for now
@@ -97,6 +85,11 @@ public class Account
 	{
 		try 
 		{
+			if(this.userName.equals(accountToFollow.getUserName()))
+			{
+				System.out.println("\nCan't follow yourself");
+				throw new IllegalArgumentException();
+			}
 			followingList.add(accountToFollow);
 			accountToFollow.followerList.add(this);
 		}
@@ -107,6 +100,10 @@ public class Account
 		}
 	}
 	
+	
+	
+	
+	
 	public String accountToString()
 	{
 		String ss = "\nAccount ID: "+ID+"\nUser name: "+userName
@@ -115,38 +112,41 @@ public class Account
 		return ss;
 	}
 	
+
+	
 	public String printAllFollowers()
 	{
-		String followers = "";
+		String s = "";
 		
+		//checking empty list
 		if(followerList.isEmpty())
 		{
-			return followers = "\nNo followers";
+			return s = this.getUserName()+" Follower List is Empty";
 		}
-		
+		//looping through and list them 
 		for(Account temp: followerList)
 		{
-			followers = followers + temp.accountToString() + "\n";
+			s = s + temp.getUserName() + "\n";
 		}
-		return followers;
+		return this.getUserName()+" Follower List:\n"+s;
 	}
 	
 	public String printAllFollowing()
 	{
-		String following = "";
+		String s = "";
 		
+		//checking empty list
 		if(followingList.isEmpty())
 		{
-			return following = "\nNot following any accounts";
+			return s = this.getUserName()+"Following List is Empty";
 		}
+		//loop through and list them
 		for(Account temp: followingList)
 		{
-			following = "FOLLOWING:\n" + following + temp.accountToString() + "\n";
+			s = s + temp.getUserName() + "\n";
 		}
-		return following;
+		return this.getUserName()+" Following List:\n"+s;
 	}
-	
-	
 	
 	
 	
