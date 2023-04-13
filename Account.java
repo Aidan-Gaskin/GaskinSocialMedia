@@ -61,14 +61,19 @@ public class Account
 		inbox = new HashMap<Account, String>();
 	}
 	
-	
+	//keeps record of previous messages, creates a chat box of sorts 
 	public void sendMessageToInbox(Account recipient, String message)
 	{
 		String messageToSend = message;
-				
+		
+		String existingMessages = recipient.inbox.get(this);
+		if(existingMessages != null && !existingMessages.isEmpty())
+		{
+			messageToSend = existingMessages +"\n"+ message;
+		}
+		
 		recipient.inbox.put(this, messageToSend);
 	}
-	//this does not account for multiple messages from 1 account object 
 	public String displayMessageFromSpecifiedUser(Account user)
 	{
 		String message = "\nNo messages from this user";
@@ -78,7 +83,7 @@ public class Account
 		{
 			if(temp.getKey().equals(ifUser))
 			{
-				message = temp.getValue();
+				message = user.getUserName()+":\n"+temp.getValue();
 				return message;
 			}
 		}
