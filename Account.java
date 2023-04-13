@@ -65,7 +65,8 @@ public class Account
 	public void sendMessageToInbox(Account recipient, String message)
 	{
 		String messageToSend = message;
-		recipient.inbox.put(recipient, messageToSend);
+				
+		recipient.inbox.put(this, messageToSend);
 	}
 	//this does not account for multiple messages from 1 account object 
 	public String displayMessageFromSpecifiedUser(Account user)
@@ -75,12 +76,12 @@ public class Account
 		
 		for(HashMap.Entry<Account, String> temp: inbox.entrySet())
 		{
-			if(temp.getKey() == ifUser)
+			if(temp.getKey().equals(ifUser))
 			{
 				message = temp.getValue();
+				return message;
 			}
 		}
-		
 		return message;
 	}
 	
