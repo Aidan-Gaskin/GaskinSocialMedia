@@ -12,66 +12,61 @@ public class Account
 	//Final string userName, user's cannot change their userName
 	private final String userName;
 	
-	//
+	private String forename;
+	private String surname;
+	
+	
+	//Date of birth of user
 	private LocalDate dob;
+	
+	
 	//for verifying user age 
-	private final LocalDate today = LocalDate.now();
+	private LocalDate today = LocalDate.now();
+    private LocalDate eighteenYearsAgo = today.minusYears(18);
+
 
 	
-	//ArrayList to collect username's and ensure uniqueness
-	private static ArrayList<String> userNames;
+	//ArrayList to collect username's and ensure uniqueness - same arrayList for all objects of Account 
+	private static ArrayList<String> userNames = new ArrayList<String>();
+	
+	//ArrayList to hold all followers
+	private ArrayList<Account> followerList;
+	//ArrayList to hold all following
+	private ArrayList<Account> followingList;
+	
+
 	
 	public Account(String userName, String forename, String surname
 			, int birthYear, int birthMonth, int birthDay)
 	{
-		//Ensuring unique user name
-		if(userNameExists())
+		//Check for user name
+		if(userNames.contains(userName))
 		{
 			//amend once the functionality is complete 
-			throw new IllegalArgumentException("Note to self: Change this at later date");
-		}
-		//Ensuring user is not a child 
-		else if (!isUserOfAge())
-		{
-			throw new IllegalArgumentException("Note to self: Change this at later date");
+			System.out.println("\nUsername already exists. Please change name");
+			throw new IllegalArgumentException();
 		}
 		
-		//Continue with account creation 
-		else
-			
+		//Check for DOB
+		this.dob = LocalDate.of(birthYear, birthMonth, birthDay);
+        if (dob.isAfter(eighteenYearsAgo)) 
+        {
+            System.out.println("\nUser must be at least 18 years old.");
+            throw new IllegalArgumentException();
+        }
+
+		//Continue with account creation
 		ID = incrementer;
 		incrementer = incrementer + 1;
+		this.forename = forename;
+		this.surname = surname;
 		this.userName = userName;
+		userNames.add(userName);
 		
-		//obtain users date of birth 
-		this.dob = LocalDate.of(birthYear, birthMonth, birthDay);
+		followerList = new ArrayList<Account>();
+		followingList = new ArrayList<Account>();
 		
 	}
-	
-	//Method to determine if userName already exists and
-	//will be used within the Account constructor
-	private boolean userNameExists()
-	{
-		if(userNames.contains(userName))				
-		{
-			return true;
-		}
-		return false;
-	}
-	//Method to determine user is >=18
-	private boolean isUserOfAge()
-	{
-		
-		Period age = Period.between(dob, today);
-		int years = age.getYears();
-		if(years < 18)
-		{
-			return false;
-		}
-		
-		return true;
-	}
-	
 	
 	//simple getters for now
 	private int getAccID()
@@ -82,12 +77,74 @@ public class Account
 	{
 		return userName;
 	}
+	private String getForename()
+	{
+		return forename;
+	}
+	private String getSurname()
+	{
+		return surname;
+	}
+	private LocalDate getDOB()
+	{
+		return dob;
+	}
 	
 	
 	
+	//Add to following list //also adds to follwer list of account in parameter //no need for add follower method
+	public void followAccount(Account accountToFollow)
+	{
+		try 
+		{
+			followingList.add(accountToFollow);
+			accountToFollow.followerList.add(this);
+		}
+		catch (Exception e)
+		{
+			//will create extensive error checking after functionality achieved
+			e.printStackTrace();
+		}
+	}
 	
+	public String accountToString()
+	{
+		String ss = "\nAccount ID: "+ID+"\nUser name: "+userName
+				+"\nFull Name: "+forename+" "+surname+"\nDoB: "+dob;
+		
+		return ss;
+	}
 	
+	public String printAllFollowers()
+	{
+		String followers = "";
+		
+		if(followerList.isEmpty())
+		{
+			return followers = "\nNo followers";
+		}
+		
+		for(Account temp: followerList)
+		{
+			followers = followers + temp.accountToString() + "\n";
+		}
+		return followers;
+	}
 	
+	public String printAllFollowing()
+	{
+		String following = "";
+		
+		if(followingList.isEmpty())
+		{
+			return following = "\nNot following any accounts";
+		}
+		for(Account temp: followingList)
+		{
+			following = "FOLLOWING:\n" + following + temp.accountToString() + "\n";
+		}
+		return following;
+	}
 	
 	
 	
