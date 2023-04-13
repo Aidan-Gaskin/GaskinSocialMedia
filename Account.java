@@ -1,6 +1,7 @@
 package GSM;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -24,6 +25,8 @@ public class Account
 	private ArrayList<Account> followerList;
 	//ArrayList to hold all following
 	private ArrayList<Account> followingList;
+	//HashMap to store messages
+	private HashMap<Account, String> inbox;
 	
 
 	
@@ -54,7 +57,33 @@ public class Account
 		//Initialising follower/following lists 
 		followerList = new ArrayList<Account>();
 		followingList = new ArrayList<Account>();
+		//Initialising inbox 
+		inbox = new HashMap<Account, String>();
 	}
+	
+	
+	public void sendMessageToInbox(Account recipient, String message)
+	{
+		String messageToSend = message;
+		recipient.inbox.put(recipient, messageToSend);
+	}
+	//this does not account for multiple messages from 1 account object 
+	public String displayMessageFromSpecifiedUser(Account user)
+	{
+		String message = "\nNo messages from this user";
+		Account ifUser = user;
+		
+		for(HashMap.Entry<Account, String> temp: inbox.entrySet())
+		{
+			if(temp.getKey() == ifUser)
+			{
+				message = temp.getValue();
+			}
+		}
+		
+		return message;
+	}
+	
 	
 	//simple getters for now
 	private int getAccID()
