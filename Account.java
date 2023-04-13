@@ -24,10 +24,19 @@ public class Account
 	public Account(String userName, String forename, String surname
 			, int birthYear, int birthMonth, int birthDay)
 	{
+		//Ensuring unique user name
 		if(userNameExists())
+		{
+			//amend once the functionality is complete 
+			throw new IllegalArgumentException("Note to self: Change this at later date");
+		}
+		//Ensuring user is not a child 
+		else if (!isUserOfAge())
 		{
 			throw new IllegalArgumentException("Note to self: Change this at later date");
 		}
+		
+		//Continue with account creation 
 		else
 			
 		ID = incrementer;
@@ -49,12 +58,14 @@ public class Account
 		}
 		return false;
 	}
-	//Method to determine user is 18 or over
+	//Method to determine user is >=18
 	private boolean isUserOfAge()
 	{
-		if()
+		
+		Period age = Period.between(dob, today);
+		int years = age.getYears();
+		if(years < 18)
 		{
-			
 			return false;
 		}
 		
