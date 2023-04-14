@@ -80,12 +80,16 @@ public class Account
 	
 	//in essence this should allow the object to create a message and 
 	//add it to the SharedSpace static HashMap
+//	public void createPost(String message)
+//	{
+//		String formattedMessage = this.getUserName()+":\n"+message;
+//		SharedSpace.getPosts().put(this,formattedMessage+"\n");
+//	}
 	public void createPost(String message)
 	{
 		String formattedMessage = this.getUserName()+":\n"+message;
-		SharedSpace.getPosts().put(this,formattedMessage+"\n");
+		SharedSpace.getPosts().add(formattedMessage+"\n");
 	}
-	
 	
 
 	/*
