@@ -6,29 +6,43 @@ import java.time.LocalDate;
 
 public class Account 
 {
+	
+	/*Class Account creates an account object for which all users will have.
+	 * Users will have a unique ID and UserName.
+	 * Users must be 18 or over.
+	 * Users can follow or unfollow other users.
+	 * Users can direct message other users.
+	 */
+	
+	
+	
 	//Unique ID per user created 
 	private final int ID;
 	private static int incrementer = 1;
-	//Final string userName, user's cannot change their userName
+	//User's cannot change their userName
 	private final String userName;
 	private String forename;
 	private String surname;
 	//Date of birth of user
 	private LocalDate dob;
-	//for verifying user age 
+	//Verify the user is 18 or over
 	private LocalDate today = LocalDate.now();
     private LocalDate eighteenYearsAgo = today.minusYears(18);
 	//ArrayList to collect username's and ensure uniqueness - same arrayList for all objects of Account 
 	private static ArrayList<String> userNames = new ArrayList<String>();
-	//ArrayList to hold all followers
+	//ArrayList to hold all follower accounts 
 	private ArrayList<Account> followerList;
-	//ArrayList to hold all following
+	//ArrayList to hold following accounts
 	private ArrayList<Account> followingList;
-	//HashMap to store messages
+	//HashMap to store messages between accounts 
 	private HashMap<Account, String> inbox;
 	
 
-	
+	/*
+	 * Creates an Account object and verifies unique UserName and of age 
+	 * @param - all parameters are self explanatory
+	 * all parameters will be used for account creation process
+	 */
 	public Account(String userName, String forename, String surname
 			, int birthYear, int birthMonth, int birthDay)
 	{
@@ -121,31 +135,50 @@ public class Account
 	}
 	
 	
-	//simple getters for now
+	/*
+	 * @return the ID field 
+	 */
 	private int getAccID()
 	{
 		return ID;
 	}
+	/*
+	 * @return the userName field
+	 */
 	private String getUserName()
 	{
 		return userName;
 	}
+	/*
+	 * @return the forename field 
+	 */
 	private String getForename()
 	{
 		return forename;
 	}
+	/*
+	 * @return the surname field
+	 */
 	private String getSurname()
 	{
 		return surname;
 	}
+	/*
+	 * @return the dob field
+	 */
 	private LocalDate getDOB()
 	{
 		return dob;
 	}
 	
 	
-	
-	//Add to following list //also adds to follwer list of account in parameter //no need for add follower method
+	/*
+	 * @param accountToFollow - the account object to follow
+	 * adds the parameter account object to the current account object's
+	 * following list.
+	 * adds current account object to the parameter account object's
+	 * follower list
+	 */
 	public void followAccount(Account accountToFollow)
 	{
 		try 
@@ -190,7 +223,9 @@ public class Account
 	
 	
 	
-	
+	/*
+	 * Method for testing purposes - Delete/Amend at later date
+	 */
 	public String accountToString()
 	{
 		String ss = "\nAccount ID: "+ID+"\nUser name: "+userName
@@ -198,9 +233,9 @@ public class Account
 		
 		return ss;
 	}
-	
-
-	
+	/*
+	 * Method for testing purposes - Delete/Amend at later date
+	 */
 	public String printAllFollowers()
 	{
 		String s = "";
@@ -217,7 +252,9 @@ public class Account
 		}
 		return this.getUserName()+" Follower List:\n"+s;
 	}
-	
+	/*
+	 * Method for testing purposes - Delete/Amend at later date 
+	 */
 	public String printAllFollowing()
 	{
 		String s = "";
