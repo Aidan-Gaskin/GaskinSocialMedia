@@ -3,19 +3,17 @@ package GSM;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
-
+/**
+ * 
+ * @author aidangaskin
+ *Class Account creates an account object for which all users will have.
+ * Users will have a unique ID and UserName.
+ * Users must be 18 or over.
+ * Users can follow or unfollow other users.
+ * Users can direct message other users.
+ */
 public class Account 
-{
-	
-	/*Class Account creates an account object for which all users will have.
-	 * Users will have a unique ID and UserName.
-	 * Users must be 18 or over.
-	 * Users can follow or unfollow other users.
-	 * Users can direct message other users.
-	 */
-	
-	
-	
+{		
 	//Unique ID per user created 
 	private final int ID;
 	private static int incrementer = 1;
@@ -36,6 +34,9 @@ public class Account
 	private ArrayList<Account> followingList;
 	//HashMap to store messages between accounts 
 	private HashMap<Account, String> inbox;
+	//static SharedSoace for users to post too 
+	private static SharedSpace feed;
+	
 	
 
 	/*
@@ -72,7 +73,19 @@ public class Account
 		followingList = new ArrayList<Account>();
 		//Initialising inbox 
 		inbox = new HashMap<Account, String>();
+		//static feed to share between accounts to post in one single place 
+		feed = new SharedSpace();//probably delete this.
 	}
+	
+	
+	//in essence this should allow the object to create a message and 
+	//add it to the SharedSpace static HashMap
+	public void createPost(String message)
+	{
+		String formattedMessage = this.getUserName()+":\n"+message;
+		SharedSpace.getPosts().put(this,formattedMessage+"\n");
+	}
+	
 	
 
 	/*
@@ -145,7 +158,7 @@ public class Account
 	/*
 	 * @return the userName field
 	 */
-	private String getUserName()
+	public String getUserName()
 	{
 		return userName;
 	}
