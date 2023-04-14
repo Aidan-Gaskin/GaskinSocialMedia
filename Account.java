@@ -6,7 +6,7 @@ import java.time.LocalDate;
 /**
  * 
  * @author aidangaskin
- *Class Account creates an account object for which all users will have.
+ * Class Account creates an account object for which all users will have.
  * Users will have a unique ID and UserName.
  * Users must be 18 or over.
  * Users can follow or unfollow other users.
@@ -36,8 +36,6 @@ public class Account
 	private HashMap<Account, String> inbox;
 	//static SharedSoace for users to post too 
 	private static SharedSpace feed;
-	
-	
 
 	/*
 	 * Creates an Account object and verifies unique UserName and of age 
@@ -77,14 +75,6 @@ public class Account
 		feed = new SharedSpace();//probably delete this.
 	}
 	
-	
-	//in essence this should allow the object to create a message and 
-	//add it to the SharedSpace static HashMap
-//	public void createPost(String message)
-//	{
-//		String formattedMessage = this.getUserName()+":\n"+message;
-//		SharedSpace.getPosts().put(this,formattedMessage+"\n");
-//	}
 	public void createPost(String message)
 	{
 		String formattedMessage = this.getUserName()+":\n"+message;
