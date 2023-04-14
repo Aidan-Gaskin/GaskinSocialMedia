@@ -164,15 +164,27 @@ public class Account
 			e.printStackTrace();
 		}
 	}
+	/*
+	 * @param the Account to unfollow
+	 * Removes current account from the parameters follower list
+	 * removes parameter account from the current account following list
+	 */
 	public void unFollowAccount(Account accountToUnFollow)
 	{
 		try 
 		{
-			
+			if(this.userName.equals(accountToUnFollow.getUserName()))
+			{
+				System.out.println("\nCan't follow yourself");
+				throw new IllegalArgumentException();
+			}
+			followingList.remove(accountToUnFollow);
+			accountToUnFollow.followerList.remove(this);
 		}
 		catch(Exception e)
 		{
-			
+			//Use this as error checking placeholder 
+			e.printStackTrace();
 		}
 	}
 	
