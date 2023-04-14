@@ -73,7 +73,9 @@ public class Account
 			messageToSend = existingMessages +"\n"+ message;
 		}
 		
-		recipient.inbox.put(this, messageToSend);
+		recipient.inbox.put(this,messageToSend+" :"+this.getUserName());
+		//new line - should add message to both Maps
+		this.inbox.put(recipient, messageToSend +" :"+this.getUserName());
 	}
 	public String displayMessageFromSpecifiedUser(Account user)
 	{
@@ -90,50 +92,6 @@ public class Account
 		}
 		return message;
 	}
-	
-	
-	//Version 2 of this feature
-	public void sendMessageToChat(Account recipient, String message)
-	{
-		String messageToSend = message;
-		
-		String existingMessages = recipient.inbox.get(this);
-		if(existingMessages != null && !existingMessages.isEmpty())
-		{
-			messageToSend = existingMessages +"\n"+ message;
-		}
-		
-		recipient.inbox.put(this, messageToSend);
-	}
-	public String displayChatWithUser(Account user)
-	{
-		String message = "\nNo messages from this user";
-		Account ifUser = user;
-		
-		//need to add method caller inbox to this too and display both inboxe's, then find a way to sort it chronologically 
-		String oMessage;
-		for(HashMap.Entry<Account, String> temp: inbox.entrySet())
-		{
-			if(temp.getKey().equals(this))
-			{
-				message = user.getUserName()+":\n"+temp.getValue()+"\n";
-			}
-		}
-		
-		for(HashMap.Entry<Account, String> temp: inbox.entrySet())
-		{
-			if(temp.getKey().equals(ifUser))
-			{
-				message = user.getUserName()+":\n"+temp.getValue()+"\n";
-				return message;
-			}
-		}
-		return message;
-	}
-
-
-
-	
 	
 	
 	
