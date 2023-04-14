@@ -60,9 +60,15 @@ public class Account
 		inbox = new HashMap<Account, String>();
 	}
 	
-	//keeps record of previous messages, creates a chat box of sorts 
-	//Chatbox is unique to the recipient not the sender//doesn't show the whole conversation
-	//process of fixing this now
+
+	/*
+	 * @param recipient - the account to which the message is being sent
+	 * @param message - the messsage which will be sent to the above mentioned account 
+	 * This method is called on the current Account object and sends a message to a 
+	 * specified account. The message is placed within both of the Account object's
+	 * HashMaps to provide a chat history. Each message is appended to end of the previous.
+	 * The end of each message details the respective user's name for clarification and cohesion. 
+	 */
 	public void sendMessageToInbox(Account recipient, String message)
 	{
 		String messageToSend = message;
@@ -77,6 +83,13 @@ public class Account
 		//new line - should add message to both Maps
 		this.inbox.put(recipient, messageToSend +" :"+this.getUserName());
 	}
+	/*
+	 * @param user - the Account object to display the chat with
+	 * @return message - the messages between the user 
+	 * Call this method on the current Account object and put the 
+	 * other account object as the parameter to display the chats between them.
+	 * If the messages are empty - displays relevant message 
+	 */
 	public String displayMessageFromSpecifiedUser(Account user)
 	{
 		String message = "\nNo messages from this user";
@@ -96,10 +109,15 @@ public class Account
 	
 	
 	
-	
+	/*
+	 * @param user - the Account the current user wants to clear the chat with 
+	 * This method is called on the current Account and deletes the chat history
+	 * between both users. 
+	 */
 	public void clearChatHistory(Account user)
 	{
 		user.inbox.clear();
+		this.inbox.clear();
 	}
 	
 	

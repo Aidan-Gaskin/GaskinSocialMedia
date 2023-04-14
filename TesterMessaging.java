@@ -33,6 +33,12 @@ public class TesterMessaging {
 		//System.out.println(lucas.displayMessageFromSpecifiedUser(drew));
 		System.out.println(drew.displayMessageFromSpecifiedUser(lucas));
 
+		//Testing clear chat history method
+		aidan.clearChatHistory(lucas);
+		System.out.println(aidan.displayMessageFromSpecifiedUser(lucas));
+		System.out.println(aidan.displayMessageFromSpecifiedUser(lucas));
+
+		
 		
 		
 	}
