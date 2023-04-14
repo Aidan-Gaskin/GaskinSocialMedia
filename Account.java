@@ -164,7 +164,17 @@ public class Account
 			e.printStackTrace();
 		}
 	}
-	
+	public void unFollowAccount(Account accountToUnFollow)
+	{
+		try 
+		{
+			
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
 	
 	
 	
