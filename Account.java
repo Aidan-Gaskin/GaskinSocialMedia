@@ -3,7 +3,6 @@ package GSM;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
-import java.time.Period;
 
 public class Account 
 {
@@ -62,6 +61,8 @@ public class Account
 	}
 	
 	//keeps record of previous messages, creates a chat box of sorts 
+	//Chatbox is unique to the recipient not the sender//doesn't show the whole conversation
+	//process of fixing this now
 	public void sendMessageToInbox(Account recipient, String message)
 	{
 		String messageToSend = message;
@@ -83,11 +84,64 @@ public class Account
 		{
 			if(temp.getKey().equals(ifUser))
 			{
-				message = user.getUserName()+":\n"+temp.getValue();
+				message = user.getUserName()+":\n"+temp.getValue()+"\n";
 				return message;
 			}
 		}
 		return message;
+	}
+	
+	
+	//Version 2 of this feature
+	public void sendMessageToChat(Account recipient, String message)
+	{
+		String messageToSend = message;
+		
+		String existingMessages = recipient.inbox.get(this);
+		if(existingMessages != null && !existingMessages.isEmpty())
+		{
+			messageToSend = existingMessages +"\n"+ message;
+		}
+		
+		recipient.inbox.put(this, messageToSend);
+	}
+	public String displayChatWithUser(Account user)
+	{
+		String message = "\nNo messages from this user";
+		Account ifUser = user;
+		
+		//need to add method caller inbox to this too and display both inboxe's, then find a way to sort it chronologically 
+		String oMessage;
+		for(HashMap.Entry<Account, String> temp: inbox.entrySet())
+		{
+			if(temp.getKey().equals(this))
+			{
+				message = user.getUserName()+":\n"+temp.getValue()+"\n";
+			}
+		}
+		
+		for(HashMap.Entry<Account, String> temp: inbox.entrySet())
+		{
+			if(temp.getKey().equals(ifUser))
+			{
+				message = user.getUserName()+":\n"+temp.getValue()+"\n";
+				return message;
+			}
+		}
+		return message;
+	}
+
+
+
+	
+	
+	
+	
+	
+	
+	public void clearChatHistory(Account user)
+	{
+		user.inbox.clear();
 	}
 	
 	

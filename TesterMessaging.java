@@ -4,22 +4,28 @@ public class TesterMessaging {
 
 	public static void main(String[] args) 
 	{
-		Account user1 = new Account("Gvskin", "Aidan", "Gaskin", 1998, 5, 15);
-		Account user2 = new Account("Lvcas", "Lucas", "Gaskin", 1998, 5, 15);
-		Account user3 = new Account("Drvw", "Drew", "Gaskin", 1998, 5, 15);
+		Account aidan = new Account("Gvskin", "Aidan", "Gaskin", 1998, 5, 15);
+		Account lucas = new Account("Lvcas", "Lucas", "Gaskin", 1998, 5, 15);
+		Account drew = new Account("Drvw", "Drew", "Gaskin", 1998, 5, 15);
+		
+		aidan.sendMessageToInbox(lucas, "FirstMessage");
+		aidan.sendMessageToInbox(lucas, "SecondMessage");
+		System.out.println(lucas.displayMessageFromSpecifiedUser(aidan));
+		aidan.sendMessageToInbox(lucas, "Have another message!");
+		lucas.sendMessageToInbox(aidan, "Hi from me");
+		System.out.println(lucas.displayMessageFromSpecifiedUser(aidan));
+		System.out.println(aidan.displayMessageFromSpecifiedUser(lucas));
+//		System.out.println(lucas.displayMessageFromSpecifiedUser(aidan));
 
 		
-//		user1.sendMessageToInbox(user2, "Hello this is a message in your inbox");
-//		user3.sendMessageToInbox(user2, "From User3");
-//		System.out.println(user2.displayMessageFromSpecifiedUser(user1));
-//		System.out.println(user2.displayMessageFromSpecifiedUser(user3));
-//		user1.sendMessageToInbox(user2, "this is the amended message");
-//		System.out.println(user2.displayMessageFromSpecifiedUser(user1));
-
-		user1.sendMessageToInbox(user2, "FirstMessage");
-		user1.sendMessageToInbox(user2, "SecondMessage");
-		user1.sendMessageToInbox(user2, "Have another message!");
-		System.out.println(user2.displayMessageFromSpecifiedUser(user1));
+		aidan.sendMessageToChat(lucas, "FirstMessage");
+		aidan.sendMessageToChat(lucas, "SecondMessage");
+		System.out.println(lucas.displayChatWithUser(aidan));
+		aidan.sendMessageToChat(lucas, "Have another message!");
+		lucas.sendMessageToChat(aidan, "Hi from me");
+		System.out.println(lucas.displayChatWithUser(aidan));
+		System.out.println(aidan.displayChatWithUser(lucas));
+//		System.out.println(lucas.displayMessageFromSpecifiedUser(aidan));
 
 	
 	}
