@@ -11,6 +11,12 @@ import java.util.Map;
  */
 public class SharedSpace 
 {
+	
+	//ArrayList to store all posts within
+	private static ArrayList<String> postArray = new ArrayList<String>();
+	
+	
+	
 
 	private static HashMap<Account, String> posts;
 	
@@ -36,20 +42,36 @@ public class SharedSpace
 		SharedSpace.posts = posts;
 	}
 	
+//	public static String displayPosts()
+//	{
+//		String postsString = "";
+//		
+//		for (Map.Entry<Account, String> temp : posts.entrySet()) 
+//		{
+//		    Account account = temp.getKey();
+//		    postsString = temp.getValue()+postsString+"\n";
+//		    postArray.add(postsString);//adding new posts to arrayList
+//		}
+//		
+//		return postsString;
+//	}
+	
 	public static String displayPosts()
 	{
-		String postsString = "";
 		
 		for (Map.Entry<Account, String> temp : posts.entrySet()) 
 		{
-		    Account account = temp.getKey();
-		    postsString = temp.getValue()+postsString+"\n";
+		    //Account account = temp.getKey();
+		    String post = temp.getValue()+"\n";
+		    postArray.add(post);//adding new posts to arrayList
+		    for(int i = 0; i<postArray.size(); i++)
+		    {
+		    	post = post + postArray.get(i);
+		    	return post;
+		    }
 		}
-		
-		return postsString;
+		return "no posts";
 	}
-	
-	
 	
 	
 	
